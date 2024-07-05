@@ -1,4 +1,5 @@
-using Microsoft.Extensions.DependencyInjection;
+using Autofac;
+//using Microsoft.Extensions.DependencyInjection;
 
 namespace INotification
 {
@@ -10,18 +11,15 @@ namespace INotification
         [STAThread]
         static void Main()
         {
-            IServiceCollection services = new ServiceCollection();
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            var configuration = MediatRConfigurationBuilder
-    .Create(typeof(Program).Assembly)
-    .WithAllOpenGenericHandlerTypesRegistered()
-    .WithRegistrationScope(RegistrationScope.Scoped) // currently only supported values are `Transient` and `Scoped`
-    .Build();
-            typeof(Program).Assembly.
-
-            Application.Run(new frm_Main());
+            var builder = new ContainerBuilder();
+            builder.RegisterModule(new INotificationModule()); 
+            //builder.Populate(ServiceProviderSource.Create(args)); // 从命令行参数或配置文件中加载服务集合
+            var container = builder.Build();
+            var from = container.Resolve<frm_Main>();
+            Application.Run(from);
         }
     }
 }

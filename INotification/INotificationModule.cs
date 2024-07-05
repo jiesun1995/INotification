@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Microsoft.AspNetCore.SignalR.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,11 +20,16 @@ namespace INotification
             foreach (Type type in assembly.GetTypes())
             {
                 // 如果类型实现了IMyForm接口，则将其注册到容器中
-                if (type.IsClass && type.GetInterfaces().Contains(typeof(Form)))
+                if (type.IsClass && type.IsSubclassOf(typeof(Form)))
                 {
-                    builder.RegisterType(type).As<IMyForm>();
+                    builder.RegisterType(type);
                 }
             }
+
+            var connection = new HubConnectionBuilder()
+                .WithUrl("https://localhost:7287/signalr-hubs/Message")
+                .Build();
+            builder.RegisterInstance(connection);
         }
     }
 }
