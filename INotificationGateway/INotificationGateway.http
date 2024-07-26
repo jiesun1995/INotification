@@ -1,0 +1,6 @@
+@INotificationGateway_HostAddress = http://localhost:5204
+
+GET {{INotificationGateway_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

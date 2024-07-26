@@ -1,5 +1,7 @@
+using INotification.Contracts.Dtos.MessageDtos;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Toolkit.Uwp.Notifications;
+using Newtonsoft.Json;
 using Windows.Foundation.Collections;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
@@ -12,12 +14,10 @@ namespace INotification
         {
             _hubConnection = hubConnection;
             InitializeComponent();
-            _hubConnection.StartAsync().Wait();
         }
 
         private void frm_Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-
             if (e.CloseReason == CloseReason.UserClosing)//当用户点击窗体右上角X按钮或(Alt + F4)时 发生           
             {
                 e.Cancel = true;
@@ -27,8 +27,9 @@ namespace INotification
             }
         }
 
-        private void frm_Main_Load(object sender, EventArgs e)
+        private async void  frm_Main_Load(object sender, EventArgs e)
         {
+            await _hubConnection.StartAsync();
             ToastNotificationManagerCompat.OnActivated += toastArgs =>
             {
                 ToastArguments args = ToastArguments.Parse(toastArgs.Argument);
@@ -44,23 +45,8 @@ namespace INotification
 
             _hubConnection.On<string>("ReceiveMessage", message =>
             {
-                var toastContentBuilder = new ToastContentBuilder()
-                    .AddText($"{message}")
-                     .AddToastInput(new ToastSelectionBox("time")
-                     {
-                         DefaultSelectionBoxItemId = "0",
-                         Items =
-                                {
-                                    new ToastSelectionBoxItem("0", "现在完成"),
-                                    new ToastSelectionBoxItem("1", "推迟1分钟"),
-                                    new ToastSelectionBoxItem("5", "推迟5分钟"),
-                                    new ToastSelectionBoxItem("10", "推迟10分钟")
-                                }
-                     })
-                    .AddButton(new ToastButton()
-                    .SetContent("提交"));
-                toastContentBuilder
-                .Show();
+                var dto =JsonConvert.DeserializeObject<ToastDto>(message);
+                ToastHelper.ShowToast(dto?.Message, dto?.IconAddress);
             });
             
             if (this.WindowState == FormWindowState.Normal && this.Visible == true)
@@ -91,10 +77,10 @@ namespace INotification
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             var state = _hubConnection.State;
-            _hubConnection.InvokeAsync("SendMessage","test").Wait();
+            await _hubConnection.InvokeAsync("SendMessage","test");
         }
     }
 }

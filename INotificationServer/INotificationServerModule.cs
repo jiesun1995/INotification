@@ -1,11 +1,18 @@
 ﻿using INotificationServer.Controllers;
+using INotificationServer.Infrastructure;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.OpenApi.Models;
+using Quartz;
+using Quartz.AspNetCore;
+using Quartz.Impl.AdoJobStore;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
+using Volo.Abp.AspNetCore.Mvc.AntiForgery;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.AspNetCore.SignalR;
 using Volo.Abp.Autofac;
+using Volo.Abp.EntityFrameworkCore;
+using Volo.Abp.EntityFrameworkCore.SqlServer;
 using Volo.Abp.Modularity;
 using Volo.Abp.Swashbuckle;
 
@@ -15,6 +22,8 @@ namespace INotificationServer
         typeof(AbpAspNetCoreSignalRModule),
         typeof(AbpAutofacModule),
         typeof(AbpAspNetCoreSerilogModule),
+        typeof(AbpEntityFrameworkCoreModule),
+        typeof(AbpEntityFrameworkCoreSqlServerModule),
         typeof(AbpSwashbuckleModule),
         typeof(AbpAspNetCoreMvcModule)
     )]
@@ -22,12 +31,17 @@ namespace INotificationServer
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            //Configure<AbpAspNetCoreMvcOptions>(options =>
-            //{
-            //    options
-            //        .ConventionalControllers
-            //        .Create(typeof(WanZaiShopApplicationModule).Assembly);
-            //});
+            var quartzDBConnectionString = context.Services.GetConfiguration().GetConnectionString("QuartzDB")!;
+            Configure<AbpAspNetCoreMvcOptions>(options =>
+            {
+                options
+                    .ConventionalControllers
+                    .Create(typeof(INotificationServerModule).Assembly);
+            });
+            Configure<AbpAntiForgeryOptions>(options =>
+            {
+                options.AutoValidate = false;
+            });
             context.Services.AddSwaggerGen(
                options =>
                {
@@ -69,6 +83,32 @@ namespace INotificationServer
                    });
                });
 
+            context.Services.AddAbpDbContext<QuartzDBContext>(options =>
+            {
+                options.AddDefaultRepositories(true);
+            });
+
+            Configure<AbpDbContextOptions>(options =>
+            {
+                options.UseSqlServer();
+            });
+
+            context.Services.AddQuartz(options =>
+            {
+                options.SchedulerName = "INotification";
+                options.UsePersistentStore(c =>
+                {
+                    c.UseSqlServer(quartzDBConnectionString);
+                    c.Properties.Add("quartz.jobStore.tablePrefix", "[quartz].QRTZ_");
+                    c.PerformSchemaValidation = true;
+                    c.UseNewtonsoftJsonSerializer();
+                });
+            });
+
+            context.Services.AddQuartzServer(options =>
+            {
+                options.WaitForJobsToComplete = false;
+            });
         }
 
 

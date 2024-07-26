@@ -27,7 +27,7 @@ namespace INotification
             }
 
             var connection = new HubConnectionBuilder()
-                .WithUrl("https://localhost:7287/signalr-hubs/Message")
+                .WithUrl("https://localhost:7587/signalr-hubs/Message")
                 .Build();
             builder.RegisterInstance(connection);
         }

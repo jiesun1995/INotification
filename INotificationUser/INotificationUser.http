@@ -1,0 +1,6 @@
+@INotificationUser_HostAddress = http://localhost:5163
+
+GET {{INotificationUser_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
