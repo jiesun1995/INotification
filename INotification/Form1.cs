@@ -1,11 +1,11 @@
-using INotification.Contracts.Dtos.MessageDtos;
+using INotificationClient.Contracts.Dtos.MessageDtos;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Toolkit.Uwp.Notifications;
 using Newtonsoft.Json;
 using Windows.Foundation.Collections;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
-namespace INotification
+namespace INotificationClient
 {
     public partial class frm_Main : Form
     {

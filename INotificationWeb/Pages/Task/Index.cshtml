@@ -1,0 +1,26 @@
+﻿@page
+@model INotificationWeb.Pages.Task.IndexModel
+@section scripts
+{
+    <abp-script src="/Pages/Task/Index.js" />
+}
+
+
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>任务清单</abp-card-title>
+            </abp-column>
+            <abp-column size-md="_6" class="text-end">
+                    <abp-button id="NewButton"
+                                text="创建任务"
+                                icon="plus"
+                                button-type="Primary" />
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="TaskTable"></abp-table>
+    </abp-card-body>
+</abp-card>

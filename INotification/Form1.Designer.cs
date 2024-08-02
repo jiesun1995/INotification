@@ -1,4 +1,4 @@
-﻿namespace INotification
+﻿namespace INotificationClient
 {
     partial class frm_Main
     {

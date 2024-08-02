@@ -7,9 +7,9 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace INotification
+namespace INotificationClient
 {
-    public class INotificationModule: Autofac.Module
+    public class INotificationClientModule: Autofac.Module
     {
         protected override void Load(ContainerBuilder builder)
         {

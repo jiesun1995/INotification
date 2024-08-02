@@ -1,7 +1,7 @@
 using Autofac;
 //using Microsoft.Extensions.DependencyInjection;
 
-namespace INotification
+namespace INotificationClient
 {
     internal static class Program
     {
@@ -15,7 +15,7 @@ namespace INotification
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             var builder = new ContainerBuilder();
-            builder.RegisterModule(new INotificationModule()); 
+            builder.RegisterModule(new INotificationClientModule()); 
             //builder.Populate(ServiceProviderSource.Create(args)); // 从命令行参数或配置文件中加载服务集合
             var container = builder.Build();
             var from = container.Resolve<frm_Main>();

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace INotification.Contracts.Dtos.MessageDtos
+namespace INotificationClient.Contracts.Dtos.MessageDtos
 {
     public class ToastDto
     {

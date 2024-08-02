@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "INotification", "INotification\INotification.csproj", "{CB340BCF-926A-43A5-B26F-9657C2FE2C76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "INotificationClient", "INotification\INotificationClient.csproj", "{CB340BCF-926A-43A5-B26F-9657C2FE2C76}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "INotificationServer", "INotificationServer\INotificationServer.csproj", "{803806C9-65FE-46C6-8CF9-2D40E064909A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "INotificationUser", "INotificationUser\INotificationUser.csproj", "{2975E22B-EFA3-439B-94B3-D9CE94586720}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "INotificationGateway", "INotificationGateway\INotificationGateway.csproj", "{5897AE0B-C608-4B18-8D9B-BA0D3AA16365}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "INotificationGateway", "INotificationGateway\INotificationGateway.csproj", "{5897AE0B-C608-4B18-8D9B-BA0D3AA16365}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "INotificationWeb", "INotificationWeb\INotificationWeb.csproj", "{1607877C-54A0-49FE-878D-A1ABDC85F518}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "INotificationShared", "INotificationShared\INotificationShared.csproj", "{F74D72DD-810F-4403-B2D4-98F02431E041}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{5897AE0B-C608-4B18-8D9B-BA0D3AA16365}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5897AE0B-C608-4B18-8D9B-BA0D3AA16365}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5897AE0B-C608-4B18-8D9B-BA0D3AA16365}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1607877C-54A0-49FE-878D-A1ABDC85F518}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1607877C-54A0-49FE-878D-A1ABDC85F518}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1607877C-54A0-49FE-878D-A1ABDC85F518}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1607877C-54A0-49FE-878D-A1ABDC85F518}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F74D72DD-810F-4403-B2D4-98F02431E041}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F74D72DD-810F-4403-B2D4-98F02431E041}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F74D72DD-810F-4403-B2D4-98F02431E041}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F74D72DD-810F-4403-B2D4-98F02431E041}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
